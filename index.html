@@ -1,45 +1,61 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>JavaScript Code Quiz</title> 
-      </head>
-      <body>
-        <div>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JavaScript Code Quiz</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&display=swap">
+        <link rel="stylesheet" href="./assets/css/style.css">
+    </head>
+    <body>
+        <div class="card-p">
             <p>high scores</p>
             <p>time: <span>60</span> seconds</p>
         </div>
-        <div>
-          <h1>code quiz</h1>
-          <p>try to answer the following code related questions withim the time limit, keep in mind that incorrect answers will penalize your score time by ten seconds!</p>
-          <button>start quiz</button>
+        <div class="container">
+            <div class="card-contents">
+                <h1>code quiz</h1>
+                <p class="txt">try to answer the following code-related questions within the time limit, keep in mind that incorrect answers will penalize your score time by ten seconds!</p>
+                <button>start quiz</button>
+            </div>
         </div>
 
         <!-- this section is for the quiz questions -->
-        <div>
-          <h2>question:</h2>
-          <p> <!-- here will be the questions--></p>
-          <div>
-              <!-- the buttons with the options for the answers will be shown here -->
-          </div>
+        <div class="container-q">
+            <div class="card-contents">
+                <h2>question:</h2>
+                <p> <!-- here will be the questions--></p>
+                <div>
+                    <!-- the buttons with the options for the answers will be shown here -->
+                </div>
+            </div>
+            <div class="card-response">
+                <h3 id="response">response</h3>
+            </div>
         </div>
 
         <!-- this section is for the end of the quiz -->
-        <div>
-          <h2>quiz over</h2>
-          <p>your score: <span></span></p>
-          <label>enter initials:</label>
-          <input>
-          <button>submit</button>
+        <div class="container-q">
+            <div class="card-contents">
+                <h2>quiz over!</h2>
+                <p class="score">your score: <span></span></p>
+                <label class="score">enter initials:</label>
+                <input placeholder="initials" id="initials">
+                <button>submit</button>
+            </div>
         </div>
 
         <!-- this is the last section with the high scores -->
-        <div>
-          <h2>high scores</h2>
-          <ul>
-            <!-- the high scores will be shown -->
-          </ul>
-          <button>go back</button>
-          <button>clear high scores</button>
+        <div class="container">
+            <div class="card-contents">
+                <h2>high scores</h2>
+                <ul>
+                    <!-- the high scores will be shown -->
+                </ul>
+                <button>go back</button>
+                <button>clear high scores</button>
+            </div>
         </div>
       
       </body>
