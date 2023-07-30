@@ -11,13 +11,13 @@
     <body>
         <div class="card-p">
             <p>high scores</p>
-            <p>time: <span>60</span> seconds</p>
+            <p id="timer">time: <span>60</span> seconds</p>
         </div>
         <div class="container">
             <div class="card-contents">
                 <h1>code quiz</h1>
                 <p class="txt">try to answer the following code-related questions within the time limit, keep in mind that incorrect answers will penalize your score time by ten seconds!</p>
-                <button>start quiz</button>
+                <button id="start">start quiz</button>
             </div>
         </div>
 
@@ -36,7 +36,7 @@
         </div>
 
         <!-- this section is for the end of the quiz -->
-        <div class="container-q">
+        <div class="container-qo">
             <div class="card-contents">
                 <h2>quiz over!</h2>
                 <p class="score">your score: <span></span></p>
@@ -47,7 +47,7 @@
         </div>
 
         <!-- this is the last section with the high scores -->
-        <div class="container">
+        <div class="container hs">
             <div class="card-contents">
                 <h2>high scores</h2>
                 <ul>
@@ -57,6 +57,8 @@
                 <button>clear high scores</button>
             </div>
         </div>
+
+        <script src="./assets/js/script.js"></script>
       
       </body>
 </html>
