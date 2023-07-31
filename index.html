@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="card-p">
-            <p>high scores</p>
+            <p id="score">score: <span>0</span></p>
             <p id="timer">time: <span>60</span> seconds</p>
         </div>
         <div class="container">
@@ -38,7 +38,7 @@
         <div class="container-qo">
             <div class="card-contents">
                 <h2>quiz over!</h2>
-                <p class="score">your score: <span></span></p>
+                <p id="finalScore">your final score: <span>0</span></p>
                 <label class="score">enter initials:</label>
                 <input placeholder="initials" id="initials">
                 <button>submit</button>
@@ -49,7 +49,7 @@
         <div class="container-hs">
             <div class="card-contents">
                 <h2>high scores</h2>
-                <ul>
+                <ul id="highScoresList">
                     <!-- the high scores will be shown -->
                 </ul>
                 <button>go back</button>

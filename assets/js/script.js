@@ -1,11 +1,15 @@
-// variables for the timer
+// variables for the timer and sccore
 var timerValue = 60;
 var timerInterval;
+var score = 0;
 
 var timerElement = document.getElementById('timer');
+var scoreElement = document.getElementById('score');
 
 // function to start the timer
 function startTimer() {
+  score = 0;
+  scoreElement.textContent = 'score: 0';
   timerElement.innerText = 'time: ' + (timerValue) + ' seconds';
 
   timerInterval = setInterval(function() {
@@ -14,6 +18,7 @@ function startTimer() {
     if (timerValue <= 0) {
       clearInterval(timerInterval);
       timerElement.innerText = "time's up!";
+      endQuiz();
     } else {
       timerElement.innerText = 'time: ' + (timerValue) + ' seconds';
     }
@@ -95,10 +100,11 @@ var quizQuestions = [
     // check if the selected answer is correct
     if (selectedAnswer === currentQuestion.correctAnswer) {
       responseElement.textContent = 'correct!';
+      score += 10;
+      scoreElement.textContent = 'score: ' + score;
     } else {
       responseElement.textContent = 'wrong!';
-      
-      // add function here for penalties on incorrect answers
+      timerValue -= 10;
     }
   
     // move to the next question
@@ -111,10 +117,16 @@ var quizQuestions = [
     } else {
       // display the quiz over message
       setTimeout(function () {
-        document.querySelector('.container-q').style.display = 'none';
-        document.querySelector('.container-qo').style.display = 'block';
+        endQuiz();
       }, 1000);
     }
+  }
+
+  function endQuiz() {
+    clearInterval(timerInterval);
+    document.querySelector('.container-q').style.display = 'none';
+    document.querySelector('.container-qo').style.display = 'block';
+    document.getElementById('finalScore').textContent = 'Your final score: ' + score;
   }
   
   // event listener to start the quiz
@@ -124,3 +136,21 @@ var quizQuestions = [
     document.querySelector('.container-q').style.display = 'block';
     displayQuestion();
   });
+
+// function to show high scores
+function showHighScores() {
+  var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+  highScores.sort((a, b) => b.score - a.score);
+
+  var highScoresList = document.getElementById('highScoresList');
+  highScoresList.innerHTML = '';
+
+  highScores.forEach((entry) => {
+    var li = document.createElement('li');
+    li.textContent = `${entry.initials}: ${entry.score}`;
+    highScoresList.appendChild(li);
+  });
+}
+
+// call showHighScores when the page loads
+window.addEventListener('load', showHighScores);

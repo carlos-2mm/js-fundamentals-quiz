@@ -23,7 +23,7 @@ h2 {
 }
 
 .txt {
-    font-size: 22px;
+    font-size: 30px;
     font-family: 'Raleway', sans-serif;
 }
 
@@ -141,3 +141,9 @@ input {
     align-items: left; 
     padding: 0;
   }
+
+#finalScore {
+    font-family: 'Raleway', sans-serif;
+    font-size: 30px;
+    color: #02333C;
+}
