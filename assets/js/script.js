@@ -1,17 +1,15 @@
-// variables for the timer and sccore
+// variables for the timer and score
 var timerValue = 60;
 var timerInterval;
 var score = 0;
 
 var timerElement = document.getElementById('timer');
-var scoreElement = document.getElementById('score');
+var scoreElement = document.getElementById('scores');
 
 // function to start the timer
 function startTimer() {
-  score = 0;
-  scoreElement.textContent = 'score: 0';
-  timerElement.innerText = 'time: ' + (timerValue) + ' seconds';
 
+  timerElement.innerText = 'time: ' + (timerValue) + ' seconds';
   timerInterval = setInterval(function() {
     timerValue--;
 
@@ -101,11 +99,12 @@ var quizQuestions = [
     if (selectedAnswer === currentQuestion.correctAnswer) {
       responseElement.textContent = 'correct!';
       score += 10;
-      scoreElement.textContent = 'score: ' + score;
     } else {
       responseElement.textContent = 'wrong!';
       timerValue -= 10;
     }
+
+  
   
     // move to the next question
     currentQuestionIndex++;
@@ -121,12 +120,13 @@ var quizQuestions = [
       }, 1000);
     }
   }
-
+  
   function endQuiz() {
     clearInterval(timerInterval);
     document.querySelector('.container-q').style.display = 'none';
     document.querySelector('.container-qo').style.display = 'block';
-    document.getElementById('finalScore').textContent = 'Your final score: ' + score;
+    score += timerValue;
+    document.getElementById('finalScore').textContent = 'your final score: ' + score;
   }
   
   // event listener to start the quiz
@@ -154,3 +154,26 @@ function showHighScores() {
 
 // call showHighScores when the page loads
 window.addEventListener('load', showHighScores);
+
+var submitButton = document.getElementById('submitButton');
+submitButton.addEventListener('click', function() {
+  var initialsInput = document.getElementById('initialsInput');
+  var initials = initialsInput.value.trim().toUpperCase(); // Convert to uppercase
+
+  if (initials !== '') {
+    var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+    var newScore = {
+      score: score,
+      initials: initials
+    };
+
+    highScores.push(newScore);
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+    initialsInput.value = '';
+    showHighScores();  // Call your showHighScores function here to update the displayed high scores
+    document.querySelector('.container-qo').style.display = 'none';
+    
+    // Show the high scores container
+    document.querySelector('.container-hs').style.display = 'block';
+  }
+});
