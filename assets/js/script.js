@@ -43,7 +43,7 @@ var quizQuestions = [
 
     {
         question: 'the condition in an if/else statement is enclosed with ___________.',
-        answers: ['quotes', 'curly brackets', 'parenthesis', 'square brackets'],
+        answers: ['parenthesis', 'curly brackets', 'quotes', 'square brackets'],
         correctAnswer: 'parenthesis'
       },
 
@@ -55,8 +55,8 @@ var quizQuestions = [
    
       {
         question: 'strings values must be enclosed within ___________ when being assigned to variables',
-        answers: ['commas', 'curly brackets', 'quotes', 'parenthesis'],
-        correctAnswer: 'commas'
+        answers: ['quotes', 'curly brackets', 'comma', 'parenthesis'],
+        correctAnswer: 'quotes'
       },
 
       {
@@ -176,4 +176,36 @@ submitButton.addEventListener('click', function() {
     // Show the high scores container
     document.querySelector('.container-hs').style.display = 'block';
   }
+});
+
+submitButton.addEventListener('click', function(event) {
+  event.preventDefault();
+});
+
+var goBackButton = document.getElementById('goBackButton');
+var clearHighScoresButton = document.getElementById('clearHighScoresButton');
+
+goBackButton.addEventListener('click', function() {
+  // Ocultar la sección de puntuaciones altas
+  document.querySelector('.container-hs').style.display = 'none';
+
+  // Mostrar la sección de inicio
+  document.querySelector('.container').style.display = 'block';
+
+  // También puedes querer resetear el estado del cuestionario
+  // como el puntaje, el índice de la pregunta actual, etc.
+  score = 0;
+  currentQuestionIndex = 0;
+  timerValue = 60;
+  document.getElementById('timer').innerText = 'time: ' + timerValue + ' seconds';
+  // Aquí el código para manejar el click de "go back"
+});
+
+clearHighScoresButton.addEventListener('click', function() {
+  localStorage.removeItem('highScores');
+
+  // Borrar las puntuaciones altas de la lista en la pantalla
+  var highScoresList = document.getElementById('highScoresList');
+  highScoresList.innerHTML = '';
+  // Aquí el código para manejar el click de "clear high scores"
 });
