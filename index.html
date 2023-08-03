@@ -11,20 +11,20 @@
     <body>
         <div class="card-p">
             <a href="#scores">view high scores</a>
-            <p id="timer">time: <span>60</span> seconds</p>
+            <p id="timer">time: <span id="timerValue">60</span> seconds</p>
         </div>
-        <div class="container">
+        <section class="container">
             <div class="card-contents">
                 <h1>code quiz</h1>
-                <p class="txt">try to answer the following code-related questions within the time limit, keep in mind that incorrect answers will penalize your score time by ten seconds!</p>
+                <p class="txt">your mission is to tackle code-related questions within the ticking clock. be aware, though, that incorrect answers come with a penalty; each mistake will cost you 10 seconds!</p>
                 <button id="start">start quiz</button>
             </div>
-        </div>
+        </section>
 
         <!-- this section is for the quiz questions -->
-        <div class="container-q">
+        <section class="container-q">
             <div class="card-contents">
-                <p id="questionText"> <!-- here will be the questions--></p>
+                <p id="questionText"> <!-- here will be the questions --></p>
                 <div id="answerOptions">
                     <!-- the buttons with the options for the answers will be shown here -->
                 </div>
@@ -32,10 +32,10 @@
             <div class="card-response">
                 <h3 id="response">response</h3>
             </div>
-        </div>
+        </section>
 
         <!-- this section is for the end of the quiz -->
-        <div class="container-qo">
+        <section class="container-qo">
             <div class="card-contents">
                 <h2>quiz over!</h2>
                 <p id="finalScore">your final score: <span>0</span></p>
@@ -45,19 +45,21 @@
                     <button id="submitButton">submit</button>
                 </form>
             </div>
-        </div>
+        </section>
 
         <!-- this is the last section with the high scores -->
-        <div class="container-hs" id="scores">
+        <section class="container-hs" id="scores">
             <div class="card-contents">
                 <h2>high scores</h2>
                 <ul id="highScoresList">
                     <!-- the high scores will be shown -->
                 </ul>
-                <button id="goBackButton">go back</button>
+                <div>
+                    <button id="goBackButton">go back</button>
                 <button id="clearHighScoresButton">clear high scores</button>
+                </div>
             </div>
-        </div>
+        </section>
 
         <script src="./assets/js/script.js"></script>
       

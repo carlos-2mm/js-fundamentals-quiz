@@ -1,150 +1,144 @@
 // variables for the timer and score
 var timerValue = 60;
-var timerInterval;
 var score = 0;
+var currentQuestionIndex = 0;
+var timerInterval;
 
+// DOM elements
 var timerElement = document.getElementById('timer');
-var scoreElement = document.getElementById('scores');
+var container = document.querySelector('.container');
+var containerQuestions = document.querySelector('.container-q');
+var containerQuizOver = document.querySelector('.container-qo');
+var containerHighScores = document.querySelector('.container-hs');
 
-// function to start the timer
-function startTimer() {
-
-  timerElement.innerText = 'time: ' + (timerValue) + ' seconds';
-  timerInterval = setInterval(function() {
-    timerValue--;
-
-    if (timerValue <= 0) {
-      clearInterval(timerInterval);
-      timerElement.innerText = "time's up!";
-      endQuiz();
-    } else {
-      timerElement.innerText = 'time: ' + (timerValue) + ' seconds';
-    }
-  }, 1000);
-
-  // Show the container-q, container-qo, and container hs elements
-    document.querySelector('.container-q').style.display = 'block';
-    document.querySelector('.container-qo').style.display = 'none';
-    document.querySelector('.container-hs').style.display = 'none';
+// function to hide and show elements
+function toggleDisplay(elements, display) {
+  elements.forEach(element => {
+    element.style.display = display;
+  });
 }
 
-// event listener to start the timer when the "start quiz" button is clicked
+// function to start the timer and prepare the quiz
+function startTimer() {
+  updateTimerText();
+  timerInterval = setInterval(decrementTimer, 1000);
+  toggleDisplay([containerQuestions], 'block');
+  toggleDisplay([containerQuizOver, containerHighScores], 'none');
+}
+
+// function to decrement the timer value each second
+function decrementTimer() {
+  timerValue--;
+  if (timerValue <= 0) {
+    endQuiz();
+    updateTimerText("time's up!");
+  } else {
+    updateTimerText();
+  }
+}
+
+// function to udate the timer display text
+function updateTimerText(text) {
+  timerElement.innerText = text || `time: ${timerValue} seconds`;
+}
+
+// event listener to start the timer on button click
 var startButton = document.getElementById('start');
 startButton.addEventListener('click', startTimer);
 
-
-// array of quiz questions and their corresponding answer options
+// array of quiz questions with their options and correct answer
 var quizQuestions = [
-    {
-      question: 'commonly used data types DO NOT include:',
-      answers: ['strings', 'booleans', 'alerts', 'numbers'],
-      correctAnswer: "alerts"
+  {
+    question: 'how do you declare a JavaScript variable?',
+    answers: ['var carName', 'v carName', 'var-carName', 'val carName'],
+    correctAnswer: "var carName"
+  },
+
+  {
+      question: 'which operator is used to assign a value to a variable?',
+      answers: ['*', '-', '=', 'x'],
+      correctAnswer: '='
     },
 
     {
-        question: 'the condition in an if/else statement is enclosed with ___________.',
-        answers: ['parenthesis', 'curly brackets', 'quotes', 'square brackets'],
-        correctAnswer: 'parenthesis'
-      },
+      question: 'what will console.log(2 + "2") print?',
+      answers: ['"4"', '4', '"22"', '22'],
+      correctAnswer: '"22"'
+    },
+ 
+    {
+      question: 'what will console.log(typeof null) print?',
+      answers: ['"null"', '"object"', '"undefine"', '"NaN"'],
+      correctAnswer: '"object"'
+    },
 
-      {
-        question: 'arrays in JavaScript can be used to store ___________.',
-        answers: ['numbers and strings', 'other arrays', 'booleans', 'all of the above'],
-        correctAnswer: 'all of the above'
-      },
-   
-      {
-        question: 'strings values must be enclosed within ___________ when being assigned to variables',
-        answers: ['quotes', 'curly brackets', 'comma', 'parenthesis'],
-        correctAnswer: 'quotes'
-      },
+    {
+      question: 'how to write an "if" statement for executing some code if "i" is NOT equal to 5?',
+      answers: ['if i =! 5 then', 'if i <> 5', 'if (i <> 5)', 'if (i != 5)'],
+      correctAnswer: 'if (i != 5)'
+    },
+];
 
-      {
-        question: 'a very useful tool used during development and debugging for printing content to the debugger is',
-        answers: ['JavaScript', 'terminal/bash', 'for loops', 'console.log'],
-        correctAnswer: 'console.log'
-      },
-  ];
-
-  var currentQuestionIndex = 0;
-  
-  // function to display the current question and its answer options
-  function displayQuestion() {
-    var currentQuestion = quizQuestions[currentQuestionIndex];
-    var questionTextElement = document.getElementById('questionText');
-    var answerOptionsElement = document.getElementById('answerOptions');
-  
-    // display the question text
-    questionTextElement.textContent = currentQuestion.question;
-  
-    answerOptionsElement.innerHTML = '';
-  
-    // create the answer option buttons
-    currentQuestion.answers.forEach(function (answer) {
-      var answerButton = document.createElement('button');
-      answerButton.textContent = answer;
-      answerButton.addEventListener('click', function () {
-        checkAnswer(answer);
-      });
-      answerOptionsElement.appendChild(answerButton);
+// function to display the current question and its answer options
+function displayQuestion() {
+  var currentQuestion = quizQuestions[currentQuestionIndex];
+  var questionTextElement = document.getElementById('questionText');
+  var answerOptionsElement = document.getElementById('answerOptions');
+  questionTextElement.textContent = currentQuestion.question;
+  answerOptionsElement.innerHTML = '';
+  currentQuestion.answers.forEach(function (answer) {
+    var answerButton = document.createElement('button');
+    answerButton.textContent = answer;
+    answerButton.addEventListener('click', function () {
+      checkAnswer(answer);
     });
-  }
-  
-  // function to check the selected answer and show the response
-  function checkAnswer(selectedAnswer) {
-    var currentQuestion = quizQuestions[currentQuestionIndex];
-    var responseElement = document.getElementById('response');
-  
-    // check if the selected answer is correct
-    if (selectedAnswer === currentQuestion.correctAnswer) {
-      responseElement.textContent = 'correct!';
-      score += 10;
-    } else {
-      responseElement.textContent = 'wrong!';
-      timerValue -= 10;
-    }
-
-  
-  
-    // move to the next question
-    currentQuestionIndex++;
-    if (currentQuestionIndex < quizQuestions.length) {
-      setTimeout(function () {
-        responseElement.textContent = '';
-        displayQuestion();
-      }, 1000);
-    } else {
-      // display the quiz over message
-      setTimeout(function () {
-        endQuiz();
-      }, 1000);
-    }
-  }
-  
-  function endQuiz() {
-    clearInterval(timerInterval);
-    document.querySelector('.container-q').style.display = 'none';
-    document.querySelector('.container-qo').style.display = 'block';
-    score += timerValue;
-    document.getElementById('finalScore').textContent = 'your final score: ' + score;
-  }
-  
-  // event listener to start the quiz
-  var startButton = document.getElementById('start');
-  startButton.addEventListener('click', function () {
-    document.querySelector('.container').style.display = 'none';
-    document.querySelector('.container-q').style.display = 'block';
-    displayQuestion();
+    answerOptionsElement.appendChild(answerButton);
   });
+}
 
-// function to show high scores
+// function to check the selected answer and display the response
+function checkAnswer(selectedAnswer) {
+  var currentQuestion = quizQuestions[currentQuestionIndex];
+  var responseElement = document.getElementById('response');
+  if (selectedAnswer === currentQuestion.correctAnswer) {
+    responseElement.textContent = 'correct!';
+    score += 10;
+  } else {
+    responseElement.textContent = 'wrong!';
+    timerValue -= 10;
+  }
+  currentQuestionIndex++;
+  if (currentQuestionIndex < quizQuestions.length) {
+    setTimeout(function () {
+      responseElement.textContent = '';
+      displayQuestion();
+    }, 1000);
+  } else {
+    setTimeout(endQuiz, 1000);
+  }
+}
+
+// function to end the quiz and update the final score
+function endQuiz() {
+  clearInterval(timerInterval);
+  toggleDisplay([containerQuizOver], 'block');
+  toggleDisplay([containerQuestions], 'none');
+  score += timerValue;
+  document.getElementById('finalScore').textContent = 'your final score: ' + score;
+}
+
+// event listener to start displaying questions on button click
+startButton.addEventListener('click', function () {
+  toggleDisplay([container], 'none');
+  displayQuestion();
+});
+
+// function to display high scores
 function showHighScores() {
   var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
   highScores.sort((a, b) => b.score - a.score);
-
   var highScoresList = document.getElementById('highScoresList');
   highScoresList.innerHTML = '';
-
   highScores.forEach((entry) => {
     var li = document.createElement('li');
     li.textContent = `${entry.initials}: ${entry.score}`;
@@ -152,60 +146,56 @@ function showHighScores() {
   });
 }
 
-// call showHighScores when the page loads
+// event listener to update the high scores on window load
 window.addEventListener('load', showHighScores);
 
+// event listener to save the user's score when submit button is clicked
 var submitButton = document.getElementById('submitButton');
-submitButton.addEventListener('click', function() {
+submitButton.addEventListener('click', function(event) {
+  event.preventDefault();
   var initialsInput = document.getElementById('initialsInput');
-  var initials = initialsInput.value.trim().toUpperCase(); // Convert to uppercase
-
+  var initials = initialsInput.value.trim().toUpperCase();
   if (initials !== '') {
     var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-    var newScore = {
-      score: score,
-      initials: initials
-    };
-
+    var newScore = { score: score, initials: initials };
     highScores.push(newScore);
     localStorage.setItem('highScores', JSON.stringify(highScores));
     initialsInput.value = '';
-    showHighScores();  // Call your showHighScores function here to update the displayed high scores
-    document.querySelector('.container-qo').style.display = 'none';
-    
-    // Show the high scores container
-    document.querySelector('.container-hs').style.display = 'block';
+    showHighScores();
+    toggleDisplay([containerQuizOver], 'none');
+    toggleDisplay([containerHighScores], 'block');
   }
 });
 
-submitButton.addEventListener('click', function(event) {
-  event.preventDefault();
-});
-
+// event listeners to go back to the start and to clear the high scores
 var goBackButton = document.getElementById('goBackButton');
 var clearHighScoresButton = document.getElementById('clearHighScoresButton');
 
 goBackButton.addEventListener('click', function() {
-  // Ocultar la sección de puntuaciones altas
-  document.querySelector('.container-hs').style.display = 'none';
-
-  // Mostrar la sección de inicio
-  document.querySelector('.container').style.display = 'block';
-
-  // También puedes querer resetear el estado del cuestionario
-  // como el puntaje, el índice de la pregunta actual, etc.
-  score = 0;
-  currentQuestionIndex = 0;
-  timerValue = 60;
-  document.getElementById('timer').innerText = 'time: ' + timerValue + ' seconds';
-  // Aquí el código para manejar el click de "go back"
+  toggleDisplay([containerHighScores], 'none');
+  toggleDisplay([container], 'block');
+  resetQuiz();
 });
 
 clearHighScoresButton.addEventListener('click', function() {
   localStorage.removeItem('highScores');
-
-  // Borrar las puntuaciones altas de la lista en la pantalla
   var highScoresList = document.getElementById('highScoresList');
   highScoresList.innerHTML = '';
-  // Aquí el código para manejar el click de "clear high scores"
 });
+
+// event listener to view the high scores
+var viewHighScoresLink = document.querySelector('a[href="#scores"]');
+viewHighScoresLink.addEventListener('click', function(event) {
+  event.preventDefault();
+  toggleDisplay([containerHighScores], 'block');
+  toggleDisplay([container, containerQuestions, containerQuizOver], 'none');
+  document.getElementById('scores').scrollIntoView();
+});
+
+// function to reset the quiz to its initial state
+function resetQuiz() {
+  score = 0;
+  currentQuestionIndex = 0;
+  timerValue = 60;
+  updateTimerText();
+}

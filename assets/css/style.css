@@ -1,150 +1,143 @@
-body {
-    background-color: #F2F5EA;
+/* defined primary colors, fonts */
+:root {
+    --main-color: #02333C;
+    --secondary-color: #419180;
+    --light-color: #F2F5EA;
+    --dark-color: #02333C;
+    --font-main: 'Inter', sans-serif;
+    --font-secondary: 'Raleway', sans-serif;
 }
 
-.card-p {
+/* general body styling */
+body {
+    background-color: var(--light-color);
+    font-family: var(--font-main);
+    color: var(--main-color);
+}
+
+/* card paragraph, answer options with the same styling */
+.card-p, #answerOptions {
     padding: 5px;
-    flex: content;
+    flex: auto;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    font-family: 'Inter', sans-serif;
     font-size: 20px;
+    color: var(--main-color);
 }
 
+/* link styling */
+a {
+    text-decoration: none;
+    color: var(--main-color);
+}
+
+/* heading styling */
 h1 {
     font-size: 48px;
-    font-family: 'Inter', sans-serif;
 }
 
 h2 {
     font-size: 36px;
-    font-family: 'Inter', sans-serif;
-    color: #02333C;
 }
 
-.txt {
+/* text, score, input and button styling */
+.txt, .score, input, button {
     font-size: 30px;
-    font-family: 'Raleway', sans-serif;
+    font-family: var(--font-secondary);
+    color: var(--main-color);
 }
 
-h3 {
+h3, #finalScore {
     font-size: 30px;
-    font-family: 'Inter', sans-serif;
 }
 
-.score {
-    font-size: 20px;
-    font-family: 'Raleway', sans-serif;
+/* unordered list styling */
+ul {
+    color: var(--secondary-color);
+    font-family: var(--font-secondary);
+    font-size: 24px;
+    list-style: none;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 30vw;
+    padding: 30px 0;
+    background-color: whitesmoke;
 }
 
-
+/* button styling */
 button {
     margin: 24px;
     width: 250px;
     height: 50px;
     cursor: pointer;
-    font-size: 24px;
-    background-color: #419180;
+    background-color: var(--secondary-color);
     color: #DEF6EF;
-    border: 1px solid #02333C;
+    border: 1px solid var(--main-color);
     border-radius: 10px;
-    font-family: 'Raleway', sans-serif;
 }
 
-input {
+/* input and initials styling */
+input, #initials {
     background-color: whitesmoke;
-    font-family: 'Raleway',sans-serif;
+    height: 40px;
+    width: 250px;
+    padding-left: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--main-color);
 }
 
+/* initials specific styling */
 #initials {
     width: 300px;
     padding: 8px 20px;
     margin: 8px 20px;
     box-sizing: border-box;
     font-size: 18px;
-    border: 1px solid #02333C;
+}
+
+/* container elements styling */
+.container, .container-q, .container-qo, .container-hs {
+    padding-top: 20px;
+    padding-left: 10px;
+    display: none;
+    margin: 40px auto;
+    text-align: center;
+    transition: 0.3s;
+    width: 70vw;
 }
 
 .container {
-    padding-top: 20px;
     display: block;
-    margin: 40px auto;
-    text-align: center;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    width: 60vw;
-    background-color: #f0ead6;
 }
 
-.container-q{
-    padding-top: 20px;
-    padding-left: 10px;
-    display: block;
-    margin: 40px auto;
-    text-align: left;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    width: 60vw;
-    background-color: #f0ead6;
-    display: none;
-}
-
-.container-qo{
-    padding-top: 20px;
-    padding-left: 10px;
-    display: block;
-    margin: 40px auto;
-    text-align: left;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    width: 60vw;
-    background-color: #f0ead6;
-    display: none;
-}
-
-.container-hs{
-    padding-top: 20px;
-    display: block;
-    margin: 40px auto;
-    text-align: center;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    width: 60vw;
-    background-color: #f0ead6;
-    display: none;
-}
-
+/* card contents styling */
 .card-contents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 5px 5px 30px 5px;
 }
 
+/* card response styling */
 .card-response {
     padding: 5px;
     border-top: 1px solid #BBC7A4;
-    text-align: left;
+    text-align: center;
 }
 
+/* response styling */
 #response {
     padding-bottom: 30px;
     color: #BBC7A4;
 }
 
+/* question text styling */
 #questionText {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-main);
     font-size: 36px;
-    color: #02333C;
 }
 
+/* answer options styling */
 #answerOptions {
-    display: flex; 
-    flex-direction: column; 
-    align-items: left; 
-    padding: 0;
-  }
-
-#finalScore {
-    font-family: 'Raleway', sans-serif;
-    font-size: 30px;
-    color: #02333C;
+    flex-direction: column;
 }
